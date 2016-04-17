@@ -38,7 +38,58 @@ struct oddevennode{
 
 };
 
+int isEvenOdd(int num)
+{
+	if (num % 2 == 0)
+		return 0;
+	else
+		return 1;
+}
 int * oddeven_sll(struct oddevennode *head){
-
-	return NULL;
+	if (head==NULL)
+		return NULL;
+	struct oddevennode *oddeven, *temp;
+	int arr[2], p = 0, q = 0;
+	oddeven = head;
+	while (oddeven != NULL)
+	{
+		if (isEvenOdd(oddeven->data))
+		{
+			temp= oddeven;
+			temp = temp->next;
+			while (temp != NULL)
+			{
+				if (isEvenOdd(temp->data))
+				{
+					oddeven->random = temp;
+					p++;
+					break;
+				}
+				temp = temp->next;
+			}
+		}
+		else
+		{
+			temp = oddeven;
+			temp = temp->next;
+			while (temp != NULL)
+			{
+				if (!isEvenOdd(temp->data))
+				{
+					oddeven->random = temp;
+					q++;
+					break;
+				}
+				temp = temp->next;
+			}
+		}
+		oddeven = oddeven->next;
+	}
+	if (p > 1)
+		p++;
+	if(q>1)
+		q++;
+	arr[0] = p;
+	arr[1] = q;
+	return arr;
 }
